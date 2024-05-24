@@ -5,12 +5,14 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "open-cli index.html"
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
   "dependencies": {
+    "open-cli": "^8.0.0",
     "rss-parser": "^3.13.0"
   }
 }
