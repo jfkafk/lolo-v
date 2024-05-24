@@ -1,0 +1,76 @@
+/* News feed element */
+.newsElement {
+    padding: 0.5em;
+    margin: 2rem;
+    break-inside: avoid;
+    height: fit-content;
+    border-radius: 1rem;
+    border-color: rgba(196, 199, 206, 0.2);
+    border-width: 0.1rem;
+    background-color: #F0FAF5;
+    box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(196, 199, 206, 0.3);
+}
+
+/* image element of article */
+.newsElement-image {
+    border-radius: 1rem;
+    margin: 3%;
+    box-shadow: 0.3rem 0.3rem 1rem 1rem rgba(196, 199, 206, 0.5);
+    width: 94%;
+}
+
+/* article published. */
+.pubDate {
+    color: #333333;
+    font-size: 1.3rem;
+    margin: 0.5rem;
+    text-align: right;
+}
+
+/* author of the article */
+.author {
+    font-weight: 800;
+    margin: 1rem;
+    color: #333333;
+}
+
+/* title of news feed element. */
+.title {
+    color: black;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+/* text preview */
+.content {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: black;
+}
+/* news feed element buttons */
+.custom-stroke-heart path {
+    stroke: black;
+}
+.like-button {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 1rem;
+}
+.remove-button {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 1rem;
+}
+.flag-button {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 1rem;
+}
+.peek-image {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 1rem;
+}
+.user-options {
+    width: 100%;
+}

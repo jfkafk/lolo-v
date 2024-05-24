@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./public/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="module" src="./public/server/fuckingTest.js"></script>
+    <title>lolo-v5</title>
+    <script type="module">
+        import { parseRssFeedAndCreateList } from "./public/server/fuckingTest.js";
+        let fetchedFeed;
+        async function fetchData() {
+            fetchedFeed = await parseRssFeedAndCreateList;
+            console.log(fetchedFeed);
+        }
+        fetchData();
+            $(document).ready(function() {
+                var feedContent = '';
+                $.each(dataP, function (index, item) {
+                    // Format the date.
+                    let formatted = {day: "numeric", month: "long", year: "numeric"};
+                    let articleDate = new Date(item.item.pubDate).toLocaleDateString("en-GB", formatted);
+                    let newsLink = item.item.link;
+
+                    const contentText = getContent(newsLink);
+                    console.log(contentText);
+
+                    let author = item.item.author || null;
+
+                    let imageURL = item.item.media?.['$']?.url;
+
+                    feedContent += '<div id=' + index + '>'
+                    feedContent += '<div class="popup" id="popup-' + index + '" style="display:none;">';
+                    feedContent += '<p>' + contentText + '</p>';
+                    feedContent += '</div>';
+
+                    feedContent += '<div class="newsElement">';
+                    feedContent += '<a class="clickable" href=' + newsLink + '>'
+                    feedContent += '<img class="newsElement-image" src="' + imageURL + '" alt="display-image">';
+                    feedContent += '<h2 class="title">' + item.item.title + '</h2>';
+                    feedContent += '<p class="content">' + item.item.content + '</p>';
+                    feedContent += '</a>';
+                    if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
+                    feedContent += '<p class="pubDate">' + articleDate + '</p>';
+                    feedContent += '<col class="user-options">';
+                    feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
+                    feedContent += '<img class="like-button" src="public/assets/heart.svg" alt="heart">';
+                    feedContent += '<img class="flag-button" src="./public/assets/flag.svg" alt="flag">';
+                    feedContent += '<a href="javascript:void(0);" class="peek-button" data-index="' + index + '">';
+                    feedContent += '<img class="peek-image" src="./public/assets/peek.svg" alt="peek">';
+                    feedContent += '</a>';
+                    feedContent += '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">';
+                    feedContent += '</col>';
+                    feedContent += '</div>';
+                    feedContent += '</div>';
+                });
+
+                // Append the generated content to your feed container
+                $('#feed-container').append(feedContent);
+
+                $('.peek-button').on('click', function() {
+                    var index = $(this).data('index');
+                    var popupId = 'popup-' + index;
+                    $('#' + popupId).toggle();
+                });
+            });
+    </script>
+</head>
+<body>
+
+<!-- header -->
+<header class="header">
+    <a class="logo" href="./index.html">
+        <img alt="logo" src="./public/assets/lolo-v-5.svg">
+    </a>
+    <nav class="navbar">
+        <a class="liked-news" href="#">Liked</a>
+        <a class="read-later-news" href="#">Read Later</a>
+        <a class="removed-news" href="#">Removed</a>
+    </nav>
+</header>
+
+<!-- feed section -->
+<section>
+    <div id="feed-container"></div>
+</section>
+
+<!-- footer -->
+<footer class="footer">
+    <div class="fcontainer">
+        <ul class="footer-list">
+            <li>
+                <a class="name-year" href="https://github.com/jfkafk/lolo-v5">jfkafk 2024</a>
+            </li>
+            <li>
+                <input type="checkbox" id="rememberMeCheckbox" onchange="saveCheckboxState()">
+                <label class="checkbox-label" for="rememberMeCheckbox">Remember me</label>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>

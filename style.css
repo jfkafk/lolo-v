@@ -1,0 +1,51 @@
+@import "header.css";
+@import "footer.css";
+@import "feedElement.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    transition: .2s linear;
+}
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden;
+    background: #F0FAF5;
+}
+
+.logo {
+    width: fit-content;
+}
+
+.logos-container {
+    display: flex; /* Display logos horizontally */
+    justify-content: center; /* Center logos horizontally */
+}
+
+/* -- feed section start here -- */
+.clickable {
+}
+.section {
+}
+
+#feed-container {
+    column-count: 3;
+}
+@media ( max-width: 70em ) {
+    #feed-container {
+        column-count: 2;
+    }
+}
+@media ( max-width: 50em ) {
+    #feed-container {
+        column-count: 1;
+    }
+}
+
