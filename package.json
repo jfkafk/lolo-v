@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "open-cli index.html"
+    "start": "open-cli ./index.html"
   },
   "author": "",
   "license": "ISC",
