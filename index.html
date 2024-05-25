@@ -57,7 +57,7 @@
                 console.log("received " + feed.length + "items")
                 $.each(feed, function (index, item) {
                     // Post the url into mercury api and get content.
-                    const fullContent = postRequest(item.item.link).json();
+                    const fullContent = postRequest(item.item.link);
 
                     // Format the date.
                     let formatted = {day: "numeric", month: "long", year: "numeric"};
