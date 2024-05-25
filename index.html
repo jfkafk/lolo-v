@@ -57,8 +57,9 @@
                 console.log("received " + feed.length + "items")
                 $.each(feed, function (index, item) {
                     // Post the url into mercury api and get content.
-                    postRequest('https://www.theverge.com/tech').then(() => fullText = text.content);
+                    const newText = postRequest('https://www.theverge.com/tech').then(() => fullText = text.content);
                     console.log(fullText);
+                    console.log(newText);
 
                     // Format the date.
                     let formatted = {day: "numeric", month: "long", year: "numeric"};
@@ -73,6 +74,7 @@
                     feedContent += '<div class="popup" id="popup-' + index + '" style="display:none;">';
                     //feedContent += '<p>' + contentText + '</p>';
                     feedContent += '</div>';
+                    feedContent += '<p>' + newText + '</p>'
 
                     feedContent += '<div class="newsElement">';
                     feedContent += '<a class="clickable" href=' + newsLink + '>'
