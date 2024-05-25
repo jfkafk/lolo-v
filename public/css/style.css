@@ -51,9 +51,27 @@ html{
     #feed-container {
         column-count: 2;
     }
+    #removed-container {
+        column-count: 2;
+    }
+    #later-container {
+        column-count: 2;
+    }
+    #liked-container {
+        column-count: 2;
+    }
 }
 @media ( max-width: 50em ) {
     #feed-container {
+        column-count: 1;
+    }
+    #removed-container {
+        column-count: 1;
+    }
+    #later-container {
+        column-count: 1;
+    }
+    #liked-container {
         column-count: 1;
     }
 }
