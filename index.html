@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>lolo-v5</title>
     <script>
+        let text = "";
         // Function to make the POST request.
         async function postRequest(url) {
             const postData = {
@@ -32,9 +33,8 @@
                 }
 
                 // Parse the JSON response
-                const data = await response.json();
-                console.log(data); // Log the response data
-                return data;
+                text = await response.json(); // Use await here to wait for the response to be parsed
+                return true;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
@@ -54,10 +54,12 @@
             $(document).ready(async function () {
                 const feed = await fetchAndParseRSSFeed();
                 var feedContent = '';
+                let fullText = ""
                 console.log("received " + feed.length + "items")
                 $.each(feed, function (index, item) {
                     // Post the url into mercury api and get content.
-                    const fullContent = postRequest(item.item.link);
+                    postRequest('https://www.theverge.com/tech').then(() => fullText = text.content);
+                    console.log(fullText);
 
                     // Format the date.
                     let formatted = {day: "numeric", month: "long", year: "numeric"};
