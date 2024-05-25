@@ -86,7 +86,6 @@
                 // Directly use the index to find the corresponding "close" button
                 const newsElementClone = $(this).closest('.newsElement').clone(true);
                 $('#liked-container').append(newsElementClone);
-                $(this).css('stroke', '#ff0000'); // Example color, change as needed
             });
             $('.liked-news').on('click', function() {
                 this.classList.toggle('toggled'); // toggle animation.
