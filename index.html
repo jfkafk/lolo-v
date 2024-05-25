@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>lolo-v5</title>
     <script>
-        var removed = [];
         // Parse json data from web.
         async function fetchAndParseRSSFeed() {
             try {
@@ -20,56 +19,119 @@
                 return [];
             }
         }
-            // Create html elements from received json.
-            $(document).ready(async function () {
-                const feed = await fetchAndParseRSSFeed();
-                var feedContent = '';
-                let fullText = ""
-                console.log("received " + feed.length + "items")
-                $.each(feed, function (index, item) {
+        // Create html elements from received json.
+        $(document).ready(async function () {
+            const feed = await fetchAndParseRSSFeed();
+            let feedContent = '';
+            console.log("received " + feed.length + "items")
+            $.each(feed, function (index, item) {
 
-                    // Format the date.
-                    let formatted = {day: "numeric", month: "long", year: "numeric"};
-                    let articleDate = new Date(item.item.pubDate).toLocaleDateString("en-GB", formatted);
-                    let newsLink = item.item.link;
+                // Format the date.
+                let formatted = {day: "numeric", month: "long", year: "numeric"};
+                let articleDate = new Date(item.item.pubDate).toLocaleDateString("en-GB", formatted);
+                let newsLink = item.item.link;
 
-                    let author = item.item.author || null;
+                let author = item.item.author || null;
 
-                    let imageURL = item.item.media?.['$']?.url;
+                let imageURL = item.item.media?.['$']?.url;
 
-                    feedContent += '<div id=' + index + '>'
-                    feedContent += '<div class="popup" id="popup-' + index + '" style="display:none;">';
-                    feedContent += '</div>';
+                // News element.
+                feedContent += '<div id="' + index + '" class="newsElement">';
+                feedContent += '<div class="clickable-div">';
+                feedContent += '<a class="clickable" href=' + newsLink + '>';
+                feedContent += '<img class="newsElement-image" src="' + imageURL + '" alt="display-image">';
+                feedContent += '<h2 class="title">' + item.item.title + '</h2>';
+                feedContent += '<p class="content">' + item.item.content + '</p>';
+                feedContent += '</div>';
+                feedContent += '</a>';
+                if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
+                feedContent += '<p class="pubDate">' + articleDate + '</p>';
+                // Buttons bottom side.
+                feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
+                feedContent += '<div class="user-options">';
+                feedContent += '<button id="like' + index + '">' +
+                    '<img class="like-button" src="./public/assets/heart.svg" alt="heart"' +
+                    '</button>'; // liked.
 
-                    // News element.
-                    feedContent += '<div class="newsElement">';
-                    feedContent += '<a class="clickable" href=' + newsLink + '>'
-                    feedContent += '<img class="newsElement-image" src="' + imageURL + '" alt="display-image">';
-                    feedContent += '<h2 class="title">' + item.item.title + '</h2>';
-                    feedContent += '<p class="content">' + item.item.content + '</p>';
-                    feedContent += '</a>';
-                    if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
-                    feedContent += '<p class="pubDate">' + articleDate + '</p>';
-                    // Buttons bottom side.
-                    feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
-                    feedContent += '<div class="user-options">';
-                    feedContent += '<img class="like-button" src="public/assets/heart.svg" alt="heart">';
-                    feedContent += '<img class="flag-button" src="./public/assets/flag.svg" alt="flag">';
-                    feedContent += '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">';
-                    feedContent += '</div>';
-                    feedContent += '</div>';
-                    feedContent += '</div>';
-                });
+                feedContent += '<button id="flag' + index + '">' +
+                    '<img class="flag-button" src="./public/assets/flag.svg" alt="flag"' +
+                    '</button>'; // flagged.
 
-                // Append the generated content to feed container.
-                $('#feed-container').append(feedContent);
-
-                $('.peek-button').on('click', function () {
-                    const index = $(this).data('index');
-                    const popupId = 'popup-' + index;
-                    $('#' + popupId).toggle();
-                });
+                feedContent += '<button id="close' + index + '">' +
+                    '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">' +
+                    '</button>'; // removed.
+                feedContent += '</div>';
+                feedContent += '</div>';
+                feedContent += '</div>';
             });
+
+            // Append the generated content to feed container.
+            $('#feed-container').append(feedContent);
+            // Remove button removes from main feed and adds it to the 'removed' section.
+            $('body').on('click', '.remove-button', function () {
+                const closeButtonId = '#close' + $(this).closest('.newsElement').attr('id');
+                const newsElementClone = $(this).closest('.newsElement').clone(true);
+                $('#removed-container').append(newsElementClone);
+                $(closeButtonId).parent().parent().remove(); // Remove the parent div of the clicked button
+            });
+            $('.removed-news').on('click', function() {
+                this.classList.toggle('toggled'); // toggle animation.
+                $('.read-later-news').removeClass('toggled');
+                $('.liked-news').removeClass('toggled');
+                toggleContainers(getCurrentVisibleContainer(), '#removed-container')
+            });
+
+            // Flag button changes the color of the flag and adds it into the 'read later' section.
+            $('body').on('click', '.like-button', function () {
+                // Directly use the index to find the corresponding "close" button
+                const newsElementClone = $(this).closest('.newsElement').clone(true);
+                $('#liked-container').append(newsElementClone);
+                $(this).css('stroke', '#ff0000'); // Example color, change as needed
+            });
+            $('.liked-news').on('click', function() {
+                this.classList.toggle('toggled'); // toggle animation.
+                $('.read-later-news').removeClass('toggled');
+                $('.removed-news').removeClass('toggled');
+
+                toggleContainers(getCurrentVisibleContainer(), '#liked-container');
+            });
+
+            // Like button changes the color of heart icon and adds it into the 'liked' section.
+            $('body').on('click', '.flag-button', function () {
+                // Directly use the index to find the corresponding "close" button
+                const newsElementClone = $(this).closest('.newsElement').clone(true);
+                $('#later-container').append(newsElementClone);
+            });
+            $('.read-later-news').on('click', function() {
+                this.classList.toggle('toggled'); // toggle animation.
+                $('.liked-news').removeClass('toggled');
+                $('.removed-news').removeClass('toggled');
+                toggleContainers(getCurrentVisibleContainer(), '#later-container');
+            });
+
+            // to toggle the visibility of the current and next containers
+            function toggleContainers(currentContainer, nextContainer) {
+                if (currentContainer === nextContainer) {
+                    $(currentContainer).toggle();
+                    $('#feed-container').toggle()
+                    return
+                }
+                $(currentContainer).hide();
+                $(nextContainer).toggle();
+            }
+            // returns the current container.
+            function getCurrentVisibleContainer() {
+                let containers = ['#feed-container', '#removed-container', '#liked-container', '#later-container'];
+                let visibleContainer = '';
+
+                containers.forEach(function(container) {
+                    if ($(container).is(":visible")) {
+                        visibleContainer = container;
+                    }
+                });
+                return visibleContainer;
+            }
+        });
     </script>
 </head>
 <body>
@@ -80,15 +142,18 @@
         <img alt="logo" src="./public/assets/lolo-v-5.svg">
     </a>
     <nav class="navbar">
-        <a class="liked-news" href="#">Liked</a>
-        <a class="read-later-news" href="#">Read Later</a>
-        <a class="removed-news" href="#">Removed</a>
+        <button class="liked-news">Liked</button>
+        <button class="read-later-news">Read Later</button>
+        <button class="removed-news">Removed</button>
     </nav>
 </header>
 
 <!-- feed section -->
 <section>
     <div id="feed-container"></div>
+    <div id="removed-container" hidden=""></div>
+    <div id="liked-container" hidden=""></div>
+    <div id="later-container" hidden=""></div>
 </section>
 
 <!-- footer -->

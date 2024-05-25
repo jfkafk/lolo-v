@@ -10,13 +10,16 @@
     background-color: #F0FAF5;
     box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(196, 199, 206, 0.3);
 }
-
 /* image element of article */
 .newsElement-image {
     border-radius: 1rem;
     margin: 3%;
     box-shadow: 0.3rem 0.3rem 1rem 1rem rgba(196, 199, 206, 0.5);
     width: 94%;
+}
+.newsElement:hover {
+        scale: 104%;
+        box-shadow: 1rem 1rem 1rem 1rem rgba(196, 199, 206, 0.8)
 }
 
 /* article published. */

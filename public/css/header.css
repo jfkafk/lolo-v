@@ -27,26 +27,56 @@
     height: 10rem;
     #margin-right: 1rem;
 }
+.header img:hover {
+    animation: squat 0.75s;
 
-.navbar a {
+}
+.navbar button {
     font-size: 1vw;
     padding: 0 1.5rem 0;
     color: #F0FAF5;
+    border: none;
+    background: none;
 }
+/* hover */
 .read-later-news:hover {
-    padding-bottom: 7%;
-    border-bottom: solid 0.75rem blue;
-    transition: none;
+    color: #9ddcb8;
+    transform: rotateY(20deg);
 }
 
 .removed-news:hover {
-    padding-bottom: 7%;
-    border-bottom: solid 0.75rem lawngreen;
-    transition: none;
+    color: #7bdff2;
+    transform: rotateY(20deg);
 }
 
 .liked-news:hover{
-    padding-bottom: 7%;
-    border-bottom: solid 0.75rem yellow;
-    transition: none;
+    color: #f2b5d4;
+    transform: rotateY(20deg);
+}
+/* toggle animations. */
+.liked-news.toggled {
+    display: inline-block;
+    animation: wiggle 1s;
+    color: #f2b5d4;
+}
+.read-later-news.toggled {
+    display: inline-block;
+    animation: wiggle 1s;
+    color: #72d5a1;
+}
+.removed-news.toggled {
+    display: inline-block;
+    animation: wiggle 1s;
+    color: #3bcfef;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    33% { transform: rotate(-15deg); }
+    66% { transform: rotate(15deg); }
+}
+@keyframes squat {
+    0%, 100% { transform: scaleY(100%); }
+    25%, 75% { transform: scaleY(75%); }
+    50% { transform: scaleY(125%); }
 }

@@ -38,6 +38,15 @@ html{
 #feed-container {
     column-count: 3;
 }
+#removed-container {
+    column-count: 3;
+}
+#later-container {
+    column-count: 3;
+}
+#liked-container {
+    column-count: 3;
+}
 @media ( max-width: 70em ) {
     #feed-container {
         column-count: 2;
