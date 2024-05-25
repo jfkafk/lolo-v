@@ -12,6 +12,8 @@
   "license": "ISC",
   "keywords": [],
   "dependencies": {
+    "jquery": "^3.7.1",
+    "node-fetch": "^3.3.2",
     "open-cli": "^8.0.0",
     "rss-parser": "^3.13.0"
   }
