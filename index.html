@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>lolo-v5</title>
     <script>
+        var removed = [];
         // Parse json data from web.
         async function fetchAndParseRSSFeed() {
             try {
@@ -38,7 +39,6 @@
 
                     feedContent += '<div id=' + index + '>'
                     feedContent += '<div class="popup" id="popup-' + index + '" style="display:none;">';
-                    //feedContent += '<p>' + contentText + '</p>';
                     feedContent += '</div>';
 
                     // News element.
@@ -50,13 +50,13 @@
                     feedContent += '</a>';
                     if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
                     feedContent += '<p class="pubDate">' + articleDate + '</p>';
-                    feedContent += '<col class="user-options">';
                     // Buttons bottom side.
                     feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
+                    feedContent += '<div class="user-options">';
                     feedContent += '<img class="like-button" src="public/assets/heart.svg" alt="heart">';
                     feedContent += '<img class="flag-button" src="./public/assets/flag.svg" alt="flag">';
                     feedContent += '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">';
-                    feedContent += '</col>';
+                    feedContent += '</div>';
                     feedContent += '</div>';
                     feedContent += '</div>';
                 });
@@ -96,7 +96,7 @@
     <div class="fcontainer">
         <ul class="footer-list">
             <li>
-                <a class="name-year" href="https://github.com/jfkafk/lolo-v5">jfkafk 2024</a>
+                <a class="name-year" href="https://github.com/jfkafk/lolo-v">jfkafk 2024</a>
             </li>
         </ul>
     </div>
