@@ -9,36 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>lolo-v5</title>
     <script>
-        let text = "";
-        // Function to make the POST request.
-        async function postRequest(url) {
-            const postData = {
-                "url": url
-            };
-            const apiUrl = 'https://uptime-mercury-api.azurewebsites.net/webparser';
-            try {
-                // Make the POST request using Fetch API
-                const response = await fetch(apiUrl, {
-                    method: 'POST', // Specify the method as POST
-                    headers: {
-                        'Content-Type': 'application/json' // Set the content type header
-                    },
-                    body: JSON.stringify(postData) // Convert the payload object to a JSON string
-                });
-
-                // Check if the request was successful
-                if (!response.ok) {
-                    throw new Error(`HTTP error status: ${response.status}`);
-                }
-
-                // Parse the JSON response
-                text = await response.json(); // Use await here to wait for the response to be parsed
-                return true;
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-
         // Parse json data from web.
         async function fetchAndParseRSSFeed() {
             try {
@@ -56,10 +26,6 @@
                 let fullText = ""
                 console.log("received " + feed.length + "items")
                 $.each(feed, function (index, item) {
-                    // Post the url into mercury api and get content.
-                    const newText = postRequest('https://www.theverge.com/tech').then(() => fullText = text.content);
-                    console.log(fullText);
-                    console.log(newText);
 
                     // Format the date.
                     let formatted = {day: "numeric", month: "long", year: "numeric"};
@@ -74,8 +40,8 @@
                     feedContent += '<div class="popup" id="popup-' + index + '" style="display:none;">';
                     //feedContent += '<p>' + contentText + '</p>';
                     feedContent += '</div>';
-                    feedContent += '<p>' + newText.content + '</p>'
 
+                    // News element.
                     feedContent += '<div class="newsElement">';
                     feedContent += '<a class="clickable" href=' + newsLink + '>'
                     feedContent += '<img class="newsElement-image" src="' + imageURL + '" alt="display-image">';
@@ -85,19 +51,17 @@
                     if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
                     feedContent += '<p class="pubDate">' + articleDate + '</p>';
                     feedContent += '<col class="user-options">';
+                    // Buttons bottom side.
                     feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
                     feedContent += '<img class="like-button" src="public/assets/heart.svg" alt="heart">';
                     feedContent += '<img class="flag-button" src="./public/assets/flag.svg" alt="flag">';
-                    feedContent += '<a href="javascript:void(0);" class="peek-button" data-index="' + index + '">';
-                    feedContent += '<img class="peek-image" src="./public/assets/peek.svg" alt="peek">';
-                    feedContent += '</a>';
                     feedContent += '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">';
                     feedContent += '</col>';
                     feedContent += '</div>';
                     feedContent += '</div>';
                 });
 
-                // Append the generated content to your feed container
+                // Append the generated content to feed container.
                 $('#feed-container').append(feedContent);
 
                 $('.peek-button').on('click', function () {
