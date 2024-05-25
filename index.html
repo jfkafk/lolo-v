@@ -19,6 +19,7 @@
                 // Make the POST request using Fetch API
                 const response = await fetch(apiUrl, {
                     method: 'POST', // Specify the method as POST
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json' // Set the content type header
                     },
@@ -56,7 +57,7 @@
                 console.log("received " + feed.length + "items")
                 $.each(feed, function (index, item) {
                     // Post the url into mercury api and get content.
-                    console.log(postRequest(item.item.link));
+                    const fullContent = postRequest(item.item.link).json();
 
                     // Format the date.
                     let formatted = {day: "numeric", month: "long", year: "numeric"};
