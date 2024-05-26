@@ -36,7 +36,6 @@ function renderFeed(feed) {
             console.log(category + index);
 
             // News element.
-            if (category != null) feedContent += '<div class="'+ category +'">';
 
             feedContent += `<div id="${ index }" class="newsElement">
                                 <div class="clickable-div">
@@ -46,6 +45,8 @@ function renderFeed(feed) {
                                         <p class="content">${ item.item.content }</p>
                                     </a>
                                 </div>`;
+            if (category != null) feedContent += '<div class="'+ category +'"></div>';
+            else feedContent += '<div></div>'
 
             if (author) feedContent += `<p class="author">by ${ author }</p>`;
 
@@ -61,8 +62,7 @@ function renderFeed(feed) {
                                     <img class="remove-button" src="./public/assets/remove.svg" alt="remove">
                                 </button>
                             </div>
-                          </div>`;
-            if (category != null) feedContent += '</div>';
+                         </div>`;
         });
         // Append the generated content to feed container.
         $('#feed-container').append(feedContent);
