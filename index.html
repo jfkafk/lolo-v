@@ -8,132 +8,9 @@
     <link rel="stylesheet" href="./public/css/style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <title>lolo-v5</title>
-    <script>
-        // Parse json data from web.
-        async function fetchAndParseRSSFeed() {
-            try {
-                const response = await fetch('https://lolo-v5-server.onrender.com');
-                return response.json(); // Return the items array
-            } catch (error) {
-                console.error('Error fetching or parsing RSS feed:', error);
-                return [];
-            }
-        }
-        // Create html elements from received json.
-        $(document).ready(async function () {
-            const feed = await fetchAndParseRSSFeed();
-            let feedContent = '';
-            console.log("received " + feed.length + "items")
-            $.each(feed, function (index, item) {
-
-                // Format the date.
-                let formatted = {day: "numeric", month: "long", year: "numeric"};
-                let articleDate = new Date(item.item.pubDate).toLocaleDateString("en-GB", formatted);
-                let newsLink = item.item.link;
-
-                let author = item.item.author || null;
-
-                let imageURL = item.item.media?.['$']?.url;
-
-                // News element.
-                feedContent += '<div id="' + index + '" class="newsElement">';
-                feedContent += '<div class="clickable-div">';
-                feedContent += '<a class="clickable" href=' + newsLink + '>';
-                feedContent += '<img class="newsElement-image" src="' + imageURL + '" alt="display-image">';
-                feedContent += '<h2 class="title">' + item.item.title + '</h2>';
-                feedContent += '<p class="content">' + item.item.content + '</p>';
-                feedContent += '</div>';
-                feedContent += '</a>';
-                if (author != null) feedContent += '<p class="author">' + "by " + item.item.author + '</p>';
-                feedContent += '<p class="pubDate">' + articleDate + '</p>';
-                // Buttons bottom side.
-                feedContent += '<link rel="stylesheet" href="./public/css/feedElement.css">';
-                feedContent += '<div class="user-options">';
-                feedContent += '<button id="like' + index + '">' +
-                    '<img class="like-button" src="./public/assets/heart.svg" alt="heart"' +
-                    '</button>'; // liked.
-
-                feedContent += '<button id="flag' + index + '">' +
-                    '<img class="flag-button" src="./public/assets/flag.svg" alt="flag"' +
-                    '</button>'; // flagged.
-
-                feedContent += '<button id="close' + index + '">' +
-                    '<img class="remove-button" src="./public/assets/remove.svg" alt="remove">' +
-                    '</button>'; // removed.
-                feedContent += '</div>';
-                feedContent += '</div>';
-                feedContent += '</div>';
-            });
-
-            // Append the generated content to feed container.
-            $('#feed-container').append(feedContent);
-            // Remove button removes from main feed and adds it to the 'removed' section.
-            $('body').on('click', '.remove-button', function () {
-                const closeButtonId = '#close' + $(this).closest('.newsElement').attr('id');
-                const newsElementClone = $(this).closest('.newsElement').clone(true);
-                $('#removed-container').append(newsElementClone);
-                $(closeButtonId).parent().parent().remove(); // Remove the parent div of the clicked button
-            });
-            $('.removed-news').on('click', function() {
-                this.classList.toggle('toggled'); // toggle animation.
-                $('.read-later-news').removeClass('toggled');
-                $('.liked-news').removeClass('toggled');
-                toggleContainers(getCurrentVisibleContainer(), '#removed-container')
-            });
-
-            // Flag button changes the color of the flag and adds it into the 'read later' section.
-            $('body').on('click', '.like-button', function () {
-                // Directly use the index to find the corresponding "close" button
-                const newsElementClone = $(this).closest('.newsElement').clone(true);
-                $('#liked-container').append(newsElementClone);
-            });
-            $('.liked-news').on('click', function() {
-                this.classList.toggle('toggled'); // toggle animation.
-                $('.read-later-news').removeClass('toggled');
-                $('.removed-news').removeClass('toggled');
-
-                toggleContainers(getCurrentVisibleContainer(), '#liked-container');
-            });
-
-            // Like button changes the color of heart icon and adds it into the 'liked' section.
-            $('body').on('click', '.flag-button', function () {
-                // Directly use the index to find the corresponding "close" button
-                const newsElementClone = $(this).closest('.newsElement').clone(true);
-                $('#later-container').append(newsElementClone);
-            });
-            $('.read-later-news').on('click', function() {
-                this.classList.toggle('toggled'); // toggle animation.
-                $('.liked-news').removeClass('toggled');
-                $('.removed-news').removeClass('toggled');
-                toggleContainers(getCurrentVisibleContainer(), '#later-container');
-            });
-
-            // to toggle the visibility of the current and next containers
-            function toggleContainers(currentContainer, nextContainer) {
-                if (currentContainer === nextContainer) {
-                    $(currentContainer).toggle();
-                    $('#feed-container').toggle()
-                    return
-                }
-                $(currentContainer).hide();
-                $(nextContainer).toggle();
-            }
-            // returns the current container.
-            function getCurrentVisibleContainer() {
-                let containers = ['#feed-container', '#removed-container', '#liked-container', '#later-container'];
-                let visibleContainer = '';
-
-                containers.forEach(function(container) {
-                    if ($(container).is(":visible")) {
-                        visibleContainer = container;
-                    }
-                });
-                return visibleContainer;
-            }
-        });
-    </script>
 </head>
 <body>
+
 <!-- header -->
 <header class="header">
     <a class="logo" href="./index.html">
@@ -164,6 +41,12 @@
         </ul>
     </div>
 </footer>
+
+<!-- parse the rss and build the divs -->
+<script src="./public/js/parseBuildRSS.js"></script>
+
+<!-- interactions with buttons -->
+<script src="./public/js/interaction.js"></script>
 
 </body>
 </html>

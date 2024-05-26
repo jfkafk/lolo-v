@@ -56,18 +56,29 @@
     display: flex; /* Make the container a flex container */
     justify-content: space-between; /* Distribute space evenly between items */
     width: 100%; /* Adjust based on your design requirements */
+    border: none;
 }
-.custom-stroke-heart path {
-    stroke: black;
-}
+
 .like-button {
     margin-left: 10%;
     margin-bottom: 1rem;
 }
+.like-button:hover {
+    scale: 130%;
+}
+
 .flag-button {
     margin-bottom: 1rem;
+    background: transparent none;
 }
+.flag-button:hover {
+    scale: 130%;
+}
+
 .remove-button {
     margin-right: 10%;
     margin-bottom: 1rem;
+}
+.remove-button:hover {
+    scale: 130%;
 }
