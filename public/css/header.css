@@ -7,7 +7,6 @@
     background: rgba(144, 151, 253, 0.95);
     display: flex;
     align-items: center;
-    z-index: 1000;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     box-shadow: 0.3rem 0.3rem rgba(196, 199, 206, 0.3);

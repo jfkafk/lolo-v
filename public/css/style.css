@@ -16,7 +16,7 @@ html{
     font-size: 62.5%;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
-    overflow-x: hidden;
+    overflow-x: clip;
     background: #F0FAF5;
 }
 
@@ -24,55 +24,60 @@ html{
     width: fit-content;
 }
 
-.logos-container {
-    display: flex; /* Display logos horizontally */
-    justify-content: center; /* Center logos horizontally */
-}
-
 /* -- feed section start here -- */
 .clickable {
 }
-.section {
-}
 
 #feed-container {
-    column-count: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
 }
+
 #removed-container {
-    column-count: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
 }
 #later-container {
-    column-count: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
 }
 #liked-container {
-    column-count: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
 }
 @media ( max-width: 70em ) {
     #feed-container {
-        column-count: 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Creates 3 equal columns */
     }
     #removed-container {
-        column-count: 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Creates 3 equal columns */
     }
     #later-container {
-        column-count: 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Creates 3 equal columns */
     }
     #liked-container {
-        column-count: 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Creates 3 equal columns */
     }
 }
 @media ( max-width: 50em ) {
     #feed-container {
-        column-count: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Creates 3 equal columns */
     }
     #removed-container {
-        column-count: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Creates 3 equal columns */
     }
     #later-container {
-        column-count: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Creates 3 equal columns */
     }
     #liked-container {
-        column-count: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Creates 3 equal columns */
     }
 }
-

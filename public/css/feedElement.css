@@ -3,12 +3,60 @@
     padding: 0.5em;
     margin: 2rem;
     break-inside: avoid;
-    height: fit-content;
     border-radius: 1rem;
-    border-color: rgba(196, 199, 206, 0.2);
-    border-width: 0.1rem;
     background-color: #F0FAF5;
     box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(196, 199, 206, 0.3);
+    overflow: clip;
+}
+.Authentication {
+    .newsElement {
+        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(0, 77, 255, 0.5);
+    }
+    .newsElement:hover {
+        transition-duration: 0.1s;
+        scale: 104%;
+        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(0, 77, 255, 0.5)
+    }
+}
+.ChatGPT {
+    .newsElement {
+        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(0, 255, 192, 0.3);
+    }
+    .newsElement:hover {
+        transition-duration: 0.1s;
+        scale: 104%;
+        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(0, 255, 192, 0.3)
+    }
+}
+.Design {
+    .newsElement {
+        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(241, 0, 255, 0.3);
+    }
+    .newsElement:hover {
+        transition-duration: 0.1s;
+        scale: 104%;
+        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(241, 0, 255, 0.3)
+    }
+}
+.Technology {
+    .newsElement {
+        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(255, 239, 0, 0.3);
+    }
+    .newsElement:hover {
+        transition-duration: 0.1s;
+        scale: 104%;
+        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(255, 239, 0, 0.3)
+    }
+}
+.Productivity {
+    .newsElement {
+        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(255, 0, 0, 0.3);
+    }
+    .newsElement:hover {
+        transition-duration: 0.1s;
+        scale: 104%;
+        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(255, 0, 0, 0.3)
+    }
 }
 /* image element of article */
 .newsElement-image {
@@ -18,10 +66,23 @@
     width: 94%;
 }
 .newsElement:hover {
-        scale: 104%;
-        box-shadow: 1rem 1rem 1rem 1rem rgba(196, 199, 206, 0.8)
+    transition-duration: 0.1s;
+    scale: 104%;
+    box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(196, 199, 206, 0.8)
+}
+/* title of news feed element. */
+.title {
+    color: black;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
+/* text preview */
+.content {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: black;
+}
 /* article published. */
 .pubDate {
     color: #333333;
@@ -37,34 +98,23 @@
     color: #333333;
 }
 
-/* title of news feed element. */
-.title {
-    color: black;
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-/* text preview */
-.content {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    color: black;
-}
-
 /* news feed element buttons */
 .user-options {
-    display: flex; /* Make the container a flex container */
-    justify-content: space-between; /* Distribute space evenly between items */
-    width: 100%; /* Adjust based on your design requirements */
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
     border: none;
 }
 
 .like-button {
-    margin-left: 10%;
     margin-bottom: 1rem;
 }
+
 .like-button:hover {
     scale: 130%;
+    stroke: #f2b5d4;
 }
 
 .flag-button {
