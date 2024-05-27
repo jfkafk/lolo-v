@@ -1,5 +1,4 @@
 // Event handlers and interactions.
-let buttonsClicked = [];
 
 // Create functions behind buttons.
 function attachEventHandlers() {
@@ -91,7 +90,6 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
             let lastDiv;
             let elemFitted = false;
             $(".newsElement").each(function(index, element) {
-                elem = element;
                 // Check if the current element is not the last.newsElement
                 if (Number($(element).attr('id')) > Number(elementId)) {
                     // Insert the new div before the next.newsElement
