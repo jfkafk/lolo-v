@@ -19,14 +19,22 @@ html{
     overflow-x: clip;
     background: #F0FAF5;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+    margin-bottom: 30%;
+}
 .pick-category {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .choose-ai {
+    width: 15rem;
     background: none;
-    padding-left: 5rem;
     text-align: center;
     color: rgba(0, 0, 0, 0.3);
     font-size: 2rem;
@@ -38,9 +46,9 @@ html{
 .choose-tech {
     background: none;
     color: rgba(0, 0, 0, 0.3);
-    padding-right: 4.5rem;
     text-align: center;
     font-size: 2rem;
+    width: 15rem;
 }
 .choose-tech:hover {
     color: rgba(255, 132, 0, 0.6);

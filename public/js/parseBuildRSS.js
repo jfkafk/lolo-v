@@ -92,7 +92,9 @@ function renderFeed(feed) {
         // Append the generated content to feed the container.
         $('#feed-container').append(feedContent);
         console.log("Welcome!");
+        $('.loading').hide();
     }
+    $('.loading').hide();
     $('.pick-category').show();
     attachEventHandlers();
 
