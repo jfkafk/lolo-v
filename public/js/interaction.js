@@ -99,12 +99,13 @@ function attachEventHandlers() {
 
 // Add or remove news from feed depending on whether it is present or not.
 function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove, closeButtonId) {
-    $(this).toggleClass('flag-button-clicked');
     // Adds new element if not present.
     if ($(container).find(`#${elementId}`).length === 0) {
         $(container).append(newsElement); // Append the cloned newsElement if it's the first one
         if (isRemove) {
-            $(closeButtonId).parent().parent().remove(); // Remove the parent div of the clicked button
+            let closeButton = $(closeButtonId);
+            const newsElementToRemove = $('#feed-container').find(`#${elementId}`).first();
+            newsElementToRemove.remove();
         }
     } else {
         // Removes element from container.
@@ -114,7 +115,8 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
         if (isRemove) {
             let lastDiv;
             let elemFitted = false;
-            $(".newsElement").each(function(index, element) {
+            let divs = $("#feed-container").children();
+            $.each(divs, function(index, element) {
                 // Check if the current element is not the last.newsElement
                 if (Number($(element).attr('id')) > Number(elementId)) {
                     // Insert the new div before the next.newsElement
@@ -138,7 +140,8 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
 
 // Order the feed according to the id's.
 function sortDates() {
-    let divs = $("#feed-container.newsElement").toArray();
+    let divs = $("#feed-container").children();
+    console.log('divs ' + divs);
 
     // Sort the array based on the id attribute of each div
     divs.sort(function(a, b) {
