@@ -44,10 +44,22 @@ function renderFeed(feed) {
             let category = item.item.categories[0]['_'] || 'no-category';
             let categoryImg = categoryImageMap.get(category);
 
+            let isTech = category === 'Technology';
+            let isAI = category === 'ChatGPT';
 
-            // News element.
+            // Two categories must be in feed and category container.
+            if (isTech) {
+                // Append the generated content to feed container.
+                feedContent += handleCategoryContent(item, index);
+            }
+            else if (isAI) {
+                // Append the generated content to feed container.
+                feedContent += handleCategoryContent(item, index);
+            }
 
-            feedContent += `<div id="${ index }" class="newsElement">
+            else {
+                // News element.
+                feedContent += `<div id="${ index }" class="newsElement">
                                 <div class="clickable-div">
                                     <a class="clickable" href="${ newsLink }">
                                         <img class="newsElement-image" src="${ imageURL }" alt="display-image">
@@ -56,9 +68,9 @@ function renderFeed(feed) {
                                     </a>
                                 </div>`;
 
-            if (author) feedContent += `<p class="author">by ${ author }</p>`;
+                if (author) feedContent += `<p class="author">by ${ author }</p>`;
 
-            feedContent += `<p class="pubDate">${ articleDate }</p>
+                feedContent += `<p class="pubDate">${ articleDate }</p>
                             <div class=${ category }>
                                 <img class="img-"${ category + '-img' } src=${ categoryImg } alt=${ category }>
                                 <h3 class="${ category + '-text' }">${ category }</h3>
@@ -75,24 +87,31 @@ function renderFeed(feed) {
                                 </button>
                             </div>
                          </div>`;
+            }
         });
-        // Append the generated content to feed container.
+        // Append the generated content to feed the container.
         $('#feed-container').append(feedContent);
         console.log("Welcome!");
     }
+    $('.pick-category').show();
     attachEventHandlers();
+
+    // On default hide all containers except feed.
     $('#later-container').hide();
     $('#liked-container').hide();
     $('#removed-container').hide();
+    $('#ai-container').hide();
+    $('#tech-container').hide();
 }
 
+// Restores old state if there is one.
 function restoreContainerState() {
     // Returns true if page is loaded first time.
     let isFirstLoad = true;
 
     const state = JSON.parse(localStorage.getItem('containerState'));
     if (state) {
-        ['feed', 'removed', 'liked', 'later'].forEach(containerId => {
+        ['feed', 'removed', 'liked', 'later', 'ai', 'tech'].forEach(containerId => {
             // Access all keys from the saved data.
             const savedHtml = state[containerId];
             if (savedHtml) {
@@ -105,4 +124,51 @@ function restoreContainerState() {
         });
     }
     return isFirstLoad;
+}
+
+// If element has category, handle it here.
+function handleCategoryContent(item, index) {
+    let feedContent = '';
+    // Format the date.
+    let formatted = {day: "numeric", month: "long", year: "numeric"};
+    let articleDate = new Date(item.item.pubDate).toLocaleDateString("en-GB", formatted);
+    let newsLink = item.item.link;
+    let author = item.item.author || null;
+    let imageURL = item.item.media?.['$']?.url;
+    let category = item.item.categories[0]['_'] || 'no-category';
+    let categoryImg = categoryImageMap.get(category);
+
+    feedContent += `<div id="${ index }" class="newsElement">
+                        <div class="clickable-div">
+                            <a class="clickable" href="${ newsLink }">
+                                <img class="newsElement-image" src="${ imageURL }" alt="display-image">
+                                <h2 class="title">${ item.item.title }</h2>
+                                <p class="content">${ item.item.content }</p>
+                            </a>
+                        </div>`;
+
+    if (author) feedContent += `<p class="author">by ${ author }</p>`;
+
+    feedContent += `<p class="pubDate">${ articleDate }</p>
+                        <div class=${ category }>
+                            <img class="img-"${ category + '-img' } src=${ categoryImg } alt=${ category }>
+                            <h3 class="${ category + '-text' }">${ category }</h3>
+                        </div>
+                        <div class="user-options">
+                            <button style="background: none" id="like${ index }">
+                                <img src="./public/assets/heart.svg" class="like-button" alt="heart">
+                            </button>
+                            <button style="background: none" id="flag${ index }">
+                                <img class="flag-button" src="./public/assets/flag.svg" alt="flag">
+                            </button>
+                            <button style="background: none" id="close${ index }">
+                                <img class="remove-button" src="./public/assets/remove.svg" alt="remove">
+                            </button>
+                        </div>
+                     </div>`;
+
+    // Append to correct feed and return the element.
+    if (category === 'Technology') $('#tech-container').append(feedContent);
+    if (category === 'ChatGPT') $('#ai-container').append(feedContent);
+    return feedContent;
 }

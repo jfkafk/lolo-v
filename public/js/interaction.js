@@ -1,15 +1,18 @@
 // Event handlers and interactions.
 
-// Create functions behind buttons.
+// Create functions for buttons.
 function attachEventHandlers() {
     // News feed element buttons.
 
     // Remove button removes from main feed and adds it to the 'removed' section.
     $('body').on('click', '.remove-button', function () {
-        const closeButtonId = '#close' + $(this).closest('.newsElement').attr('id');
-        const newsElementId = $(this).closest('.newsElement').attr('id');
-        const newsElementClone = $(this).closest('.newsElement').clone(true);
-        addRemoveItemsFromContainer('#removed-container', newsElementId, newsElementClone, true, closeButtonId);
+        if ($(this).parent().parent().parent().parent().attr('id') === 'feed-container'
+            || $(this).parent().parent().parent().parent().attr('id') === 'removed-container') {
+            const closeButtonId = '#close' + $(this).closest('.newsElement').attr('id');
+            const newsElementId = $(this).closest('.newsElement').attr('id');
+            const newsElementClone = $(this).closest('.newsElement').clone(true);
+            addRemoveItemsFromContainer('#removed-container', newsElementId, newsElementClone, true, closeButtonId);
+        }
     });
 
     // Flag button changes the color of the flag and adds it into the 'read later' section.
@@ -69,6 +72,28 @@ function attachEventHandlers() {
 
         // hide current container and display next.
         toggleContainers(getCurrentVisibleContainer(), '#later-container');
+    });
+
+    // Category choosing
+    $('.choose-ai').on('click', function() {
+        this.classList.toggle('toggled'); // toggle animation.
+
+        // Remove others toggled visuals.
+        $('.read-later-news').removeClass('toggled');
+        $('.liked-news').removeClass('toggled');
+
+        // hide current container and display next.
+        toggleContainers(getCurrentVisibleContainer(), '#ai-container')
+    });
+    $('.choose-tech').on('click', function() {
+        this.classList.toggle('toggled'); // toggle animation.
+
+        // Remove others toggled visuals.
+        $('.read-later-news').removeClass('toggled');
+        $('.liked-news').removeClass('toggled');
+
+        // hide current container and display next.
+        toggleContainers(getCurrentVisibleContainer(), '#tech-container')
     });
 }
 
@@ -132,15 +157,22 @@ function toggleContainers(currentContainer, nextContainer) {
     if (currentContainer === nextContainer) {
         $(currentContainer).toggle();
         $('#feed-container').toggle()
+        $('.pick-category').show();
         return
     }
     $(currentContainer).hide();
     $(nextContainer).toggle();
+
+    // Made category picking disappear if any of the custom ones has been chosen.
+    if (nextContainer!== '#tech-container' && nextContainer!== '#ai-container') {
+        $('.pick-category').hide();
+    }
 }
 
-// returns the current container.
+// returns the current visible container.
 function getCurrentVisibleContainer() {
-    let containers = ['#feed-container', '#removed-container', '#liked-container', '#later-container'];
+    let containers = ['#feed-container', '#removed-container', '#liked-container', '#later-container',
+        '#tech-container', '#ai-container'];
     let visibleContainer = '';
 
     containers.forEach(function(container) {
@@ -160,7 +192,9 @@ function saveContainerState() {
         feed: $('#feed-container').html(),
         removed: $('#removed-container').html(),
         liked: $('#liked-container').html(),
-        later: $('#later-container').html()
+        later: $('#later-container').html(),
+        ai: $('#ai-container').html(),
+        tech: $('#tech-container').html()
     };
 
     // Save current state.

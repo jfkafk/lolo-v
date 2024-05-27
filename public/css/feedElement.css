@@ -1,4 +1,4 @@
-/* News feed element */
+/* Newsfeed element */
 .newsElement {
     display: grid;
     grid-template-rows: 1fr auto;
