@@ -1,5 +1,7 @@
 /* News feed element */
 .newsElement {
+    display: grid;
+    grid-template-rows: 1fr auto;
     padding: 0.5em;
     margin: 2rem;
     break-inside: avoid;
@@ -8,56 +10,54 @@
     box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(196, 199, 206, 0.3);
     overflow: clip;
 }
+.no-category {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(129, 129, 129, 0.3);
+    border-radius: 5rem;
+}
+
 .Authentication {
-    .newsElement {
-        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(0, 77, 255, 0.5);
-    }
-    .newsElement:hover {
-        transition-duration: 0.1s;
-        scale: 104%;
-        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(0, 77, 255, 0.5)
-    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 0, 0, 0.3);
+    border-radius: 5rem;
 }
+
 .ChatGPT {
-    .newsElement {
-        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(0, 255, 192, 0.3);
-    }
-    .newsElement:hover {
-        transition-duration: 0.1s;
-        scale: 104%;
-        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(0, 255, 192, 0.3)
-    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(85, 255, 0, 0.3);
+    border-radius: 5rem;
 }
+
 .Design {
-    .newsElement {
-        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(241, 0, 255, 0.3);
-    }
-    .newsElement:hover {
-        transition-duration: 0.1s;
-        scale: 104%;
-        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(241, 0, 255, 0.3)
-    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(233, 255, 0, 0.3);
+    border-radius: 5rem;
 }
+
 .Technology {
-    .newsElement {
-        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(255, 239, 0, 0.3);
-    }
-    .newsElement:hover {
-        transition-duration: 0.1s;
-        scale: 104%;
-        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(255, 239, 0, 0.3)
-    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 132, 0, 0.3);
+    border-radius: 5rem;
 }
+
 .Productivity {
-    .newsElement {
-        box-shadow: 0.17rem 0.17rem 1rem 0.5rem rgba(255, 0, 0, 0.3);
-    }
-    .newsElement:hover {
-        transition-duration: 0.1s;
-        scale: 104%;
-        box-shadow: 0.5rem 0.5rem 1rem 1rem rgba(255, 0, 0, 0.3)
-    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: rgba(142, 0, 255, 0.3);
+    border-radius: 5rem;
 }
+
 /* image element of article */
 .newsElement-image {
     border-radius: 1rem;
@@ -75,10 +75,13 @@
     color: black;
     margin-left: 1rem;
     margin-right: 1rem;
+    font-weight: 1000;
 }
 
 /* text preview */
 .content {
+    margin-top: 1rem;
+    font-size: 1.3rem;
     margin-left: 1rem;
     margin-right: 1rem;
     color: black;
@@ -97,9 +100,12 @@
     margin: 1rem;
     color: #333333;
 }
-
+.clickable {
+    flex-grow: 1;
+}
 /* news feed element buttons */
 .user-options {
+    flex-grow: 1;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
@@ -114,7 +120,8 @@
 
 .like-button:hover {
     scale: 130%;
-    stroke: #f2b5d4;
+    background-color: #f2b5d4;
+    border-radius: 11rem;
 }
 
 .flag-button {
@@ -123,6 +130,8 @@
 }
 .flag-button:hover {
     scale: 130%;
+    background-color: #72d5a1;
+    border-radius: 11rem;
 }
 
 .remove-button {
@@ -131,4 +140,6 @@
 }
 .remove-button:hover {
     scale: 130%;
+    background-color: #3bcfef;
+    border-radius: 11rem;
 }

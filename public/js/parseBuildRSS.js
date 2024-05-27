@@ -1,3 +1,11 @@
+let categoryImageMap = new Map();
+categoryImageMap.set('Authentication', '/public/assets/auth.svg')
+categoryImageMap.set('Productivity', '/public/assets/prod.svg')
+categoryImageMap.set('Design', '/public/assets/design.svg')
+categoryImageMap.set('Technology', '/public/assets/tech.svg')
+categoryImageMap.set('ChatGPT', '/public/assets/ai.svg')
+categoryImageMap.set('no-category', '/public/assets/no-category.svg')
+
 // Parse json data from web.
 async function fetchAndParseRSSFeed() {
     try {
@@ -32,8 +40,9 @@ function renderFeed(feed) {
             let newsLink = item.item.link;
             let author = item.item.author || null;
             let imageURL = item.item.media?.['$']?.url;
-            let category = item.item.categories[0]['_'] || null;
-            console.log(category + index);
+            let category = item.item.categories[0]['_'] || 'no-category';
+            let categoryImg = categoryImageMap.get(category);
+
 
             // News element.
 
@@ -45,12 +54,14 @@ function renderFeed(feed) {
                                         <p class="content">${ item.item.content }</p>
                                     </a>
                                 </div>`;
-            if (category != null) feedContent += '<div class="'+ category +'"></div>';
-            else feedContent += '<div></div>'
 
             if (author) feedContent += `<p class="author">by ${ author }</p>`;
 
             feedContent += `<p class="pubDate">${ articleDate }</p>
+                            <div class=${ category }>
+                                <img class="img-"${ category + '-img' } src=${ categoryImg } alt=${ category }>
+                                <h3 class="${ category + '-text' }">${ category }</h3>
+                            </div>
                             <div class="user-options">
                                 <button style="background: none" id="like${ index }">
                                     <img src="./public/assets/heart.svg" class="like-button" alt="heart">
@@ -73,6 +84,7 @@ function renderFeed(feed) {
     $('#liked-container').hide();
     $('#removed-container').hide();
 }
+
 function restoreContainerState() {
     // Returns true if page is loaded first time.
     let isFirstLoad = true;

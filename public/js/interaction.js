@@ -2,6 +2,17 @@
 
 // Create functions behind buttons.
 function attachEventHandlers() {
+    $('.newsElement').hover(
+        function() {
+            // Mouse enters
+            $(this).addClass('active');
+        },
+        function() {
+            // Mouse leaves
+            $(this).removeClass('active');
+        }
+    );
+
     // News feed element buttons.
 
     // Remove button removes from main feed and adds it to the 'removed' section.
@@ -86,16 +97,14 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
                 if (Number($(element).attr('id')) > Number(elementId)) {
                     // Insert the new div before the next.newsElement
                     $(newsElement).insertBefore(element);
-                    console.log("elem -> " + $(element).attr('id') + " object -> " + elementId)
                     elemFitted = true;
                     return false;
                 } else {
                     lastDiv = element;
                 }
             });
-            console.log(elemFitted);
+            // If did not fit anywhere.
             if (!elemFitted) {
-                console.log("soifgnesofign")
                 $('#feed-container').append(newsElement);
             }
         }
@@ -104,9 +113,9 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
     saveContainerState();
 }
 
+// Order the feed according to the id's.
 function sortDates() {
     let divs = $("#feed-container.newsElement").toArray();
-    console.log(divs);
 
     // Sort the array based on the id attribute of each div
     divs.sort(function(a, b) {
@@ -116,9 +125,9 @@ function sortDates() {
     // Iterate through the sorted array and append each div back to the parent div
     $.each(divs, function(index, div) {
         $("#feed-container").append(div);
-        console.log($('#feed-container'));
     });
 }
+
 // hide current container and display new one.
 function toggleContainers(currentContainer, nextContainer) {
     // clicking twice closes the container and displays the main feed.
