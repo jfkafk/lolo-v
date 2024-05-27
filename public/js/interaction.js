@@ -1,18 +1,8 @@
 // Event handlers and interactions.
+let buttonsClicked = [];
 
 // Create functions behind buttons.
 function attachEventHandlers() {
-    $('.newsElement').hover(
-        function() {
-            // Mouse enters
-            $(this).addClass('active');
-        },
-        function() {
-            // Mouse leaves
-            $(this).removeClass('active');
-        }
-    );
-
     // News feed element buttons.
 
     // Remove button removes from main feed and adds it to the 'removed' section.
@@ -25,19 +15,27 @@ function attachEventHandlers() {
 
     // Flag button changes the color of the flag and adds it into the 'read later' section.
     $('body').on('click', '.flag-button', function () {
-        // Directly use the index to find the corresponding "close" button
-        const newsElement = $(this).closest('.newsElement').clone(true);
-        const newsElementId = $(this).closest('.newsElement').attr('id');
-        // Add element to given container. On second click remove it from there.
-        addRemoveItemsFromContainer('#later-container', newsElementId, newsElement, false)
+        if ($(this).parent().parent().parent().parent().attr('id') === 'feed-container') {
+            // Css changes.
+            $(this).toggleClass('flag-button-clicked');
+            const newsElement = $(this).closest('.newsElement').clone(true);
+            newsElement.toggleClass('flag-button-not-clickable');
+            newsElement.toggleClass('like-button-not-clickable');
+            const newsElementId = $(this).closest('.newsElement').attr('id');
+            // Add element to given container. On second click remove it from there.
+            addRemoveItemsFromContainer('#later-container', newsElementId, newsElement, false)
+        }
     });
 
     // Like button changes the color of heart icon and adds it into the 'liked' section.
     $('body').on('click', '.like-button', function () {
-        const newsElement = $(this).closest('.newsElement').clone(true);
-        const newsElementId = $(this).closest('.newsElement').attr('id');
-        // Add element to given container. On second click remove it from there.
-        addRemoveItemsFromContainer('#liked-container', newsElementId, newsElement, false)
+        if ($(this).parent().parent().parent().parent().attr('id') === 'feed-container') {
+            $(this).toggleClass('like-button-clicked');
+            const newsElement = $(this).closest('.newsElement').clone(true);
+            const newsElementId = $(this).closest('.newsElement').attr('id');
+            // Add element to given container. On second click remove it from there.
+            addRemoveItemsFromContainer('#liked-container', newsElementId, newsElement, false)
+        }
     });
 
     // Header navbar buttons.
@@ -77,6 +75,7 @@ function attachEventHandlers() {
 
 // Add or remove news from feed depending on whether it is present or not.
 function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove, closeButtonId) {
+    $(this).toggleClass('flag-button-clicked');
     // Adds new element if not present.
     if ($(container).find(`#${elementId}`).length === 0) {
         $(container).append(newsElement); // Append the cloned newsElement if it's the first one
@@ -112,6 +111,7 @@ function addRemoveItemsFromContainer(container, elementId, newsElement, isRemove
     sortDates()
     saveContainerState();
 }
+
 
 // Order the feed according to the id's.
 function sortDates() {

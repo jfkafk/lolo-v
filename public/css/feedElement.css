@@ -117,11 +117,14 @@
 .like-button {
     margin-bottom: 1rem;
 }
-
 .like-button:hover {
     scale: 130%;
     background-color: #f2b5d4;
     border-radius: 11rem;
+}
+.like-button-clicked {
+    background-color: #f2b5d4;
+    border-radius: 8rem;
 }
 
 .flag-button {
@@ -132,6 +135,10 @@
     scale: 130%;
     background-color: #72d5a1;
     border-radius: 11rem;
+}
+.flag-button-clicked {
+    background-color: #72d5a1;
+    border-radius: 8rem;
 }
 
 .remove-button {

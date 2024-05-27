@@ -1,3 +1,4 @@
+// Map where category images are loaded from.
 let categoryImageMap = new Map();
 categoryImageMap.set('Authentication', '/public/assets/auth.svg')
 categoryImageMap.set('Productivity', '/public/assets/prod.svg')
